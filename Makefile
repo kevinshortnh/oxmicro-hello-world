@@ -1,12 +1,11 @@
 #!/usr/bin/env make -f
 
-		REPOSITORY      = testuser-dev
-		DEVPI_INDEX     = testuser/dev
-		PACKAGE_NAME    = oxmicro-hello-world
+		PYPIRC_REPO     = faws-kevi9532
+test:           PYPIRC_REPO     = testpypi
+live:           PYPIRC_REPO     = pypi
 
-devpi:          REPOSITORY      = testuser-dev
-test:           REPOSITORY      = testpypi
-live:           REPOSITORY      = pypi
+		PACKAGE_NAME    = oxmicro-hello-world
+		PACKAGE_VER     = 0.3
 
 help:
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "%-15s %s\n", $$1, $$2}'
@@ -36,13 +35,13 @@ setup-sdist: ## Create a source distribution (tarball, zip file, etc.)
 	python setup.py sdist
 
 setup-register: ## Register the distribution with the Python package index
-	python setup.py register -r $(REPOSITORY)
+	python setup.py register -r $(PYPIRC_REPO)
 
 setup-bdist: ## Create a built (binary) distribution
 	python setup.py bdist
 
 setup-upload: ## Upload upload binary package to PyPI
-	python setup.py sdist upload -r $(REPOSITORY)
+	python setup.py sdist upload -r $(PYPIRC_REPO)
 
 setup-check: ## Perform some checks on the package
 	python setup.py check
@@ -73,15 +72,19 @@ extras-bdist_egg: ## create an "egg" distribution
 #---
 
 twine-upload: ## Twine upload
-	twine upload dist/* -r $(REPOSITORY)
+	twine upload dist/* -r $(PYPIRC_REPO)
 
 #---
 
 devpi-upload: ## devpi upload
-	devpi upload --index $(DEVPI_INDEX)
+	devpi upload --index $(DEV_INDEX)
+
+devpi-push: ## devpi push
+	devpi use $(DEV_INDEX)
+	devpi push oxmicro-hello-world==0.3 $(PROD_INDEX)
 
 devpi-remove: ## devpi remove
-	devpi remove -y --index $(DEVPI_INDEX) $(PACKAGE_NAME)
+	devpi remove -y --index $(DEV_INDEX) $(PACKAGE_NAME)
 
 devpi-reindex: ## devpi-server reindex
 	devpi-server --stop
