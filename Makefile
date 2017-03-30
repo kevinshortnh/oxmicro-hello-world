@@ -1,11 +1,11 @@
 #!/usr/bin/env make -f
 
-		PYPIRC_REPO     = faws-kevi9532
-test:           PYPIRC_REPO     = testpypi
-live:           PYPIRC_REPO     = pypi
+        PYPIRC_REPO     = faws-kevi9532
+test:   PYPIRC_REPO     = testpypi
+live:   PYPIRC_REPO     = pypi
 
-		PACKAGE_NAME    = oxmicro-hello-world
-		PACKAGE_VER     = 0.3
+        PACKAGE_NAME    = oxmicro_hello_world
+        PACKAGE_VER     = 0.3
 
 help:
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "%-15s %s\n", $$1, $$2}'
@@ -16,6 +16,7 @@ clean: ## clean
 	$(RM) -r dist
 	$(RM) -r setup.cfg
 	$(RM) -r oxmicro_hello_world.egg-info
+	$(RM) *.pyc */*.pyc
 
 #---
 
@@ -81,7 +82,7 @@ devpi-upload: ## devpi upload
 
 devpi-push: ## devpi push
 	devpi use $(DEV_INDEX)
-	devpi push oxmicro-hello-world==0.3 $(PROD_INDEX)
+	devpi push oxmicro_hello_world==0.3 $(PROD_INDEX)
 
 devpi-remove: ## devpi remove
 	devpi remove -y --index $(DEV_INDEX) $(PACKAGE_NAME)
