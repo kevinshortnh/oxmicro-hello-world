@@ -17,7 +17,7 @@ AUTHOR = 'Kevin Short'
 AUTHOR_EMAIL = 'kevinshortnh@gmail.com'
 URL = 'http://www.oxmicro.com/'
 
-VERSION = '1.2.1'
+VERSION = '1.2.2'
 
 SCRIPT = '{}={}.{}:{}'.format(NAME, PACKAGE, 'hello', 'main')
 
