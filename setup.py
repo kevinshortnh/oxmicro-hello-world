@@ -17,10 +17,7 @@ AUTHOR = 'Kevin Short'
 AUTHOR_EMAIL = 'kevinshortnh@gmail.com'
 URL = 'http://www.oxmicro.com/'
 
-MAJOR = '0'
-MINOR = '0'
-BUILD = getenv('BUILD_NUMBER', '0')
-VERSION = '{}.{}.{}'.format(MAJOR, MINOR, BUILD)
+VERSION = '0.0.0'
 
 SCRIPT = '{}={}.{}:{}'.format(NAME, PACKAGE, 'hello', 'main')
 
