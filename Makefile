@@ -7,22 +7,13 @@ help:
 
 clean: ## clean
 	python setup.py clean
-	$(RM) -r build
 	$(RM) -r dist
-	$(RM) -r setup.cfg
-	$(RM) -r oxmicro_hello_world.egg-info
-	$(RM) *.pyc */*.pyc
+	$(RM) -r *.egg-info
+#	$(RM) -r build
+#	$(RM) -r setup.cfg
+#	$(RM) *.pyc */*.pyc
 
 #---
-
-register: ## Register new version with Repository
-	python setup.py register -r $(DEVPI_INDEX)
-
-sdist: ## Build the Source Distribution
-	python setup.py sdist
-
-upload: ## Upload new version to Repository
-	python setup.py upload -r $(DEVPI_INDEX)
 
 publish: ## Register, build Source Distribution, and Upload to Repository
 	python setup.py register -r $(DEVPI_INDEX) sdist upload -r $(DEVPI_INDEX)
