@@ -15,5 +15,16 @@ clean: ## clean
 
 #---
 
+bump: patch ## Bump the 'patch' number
+
+patch: ## Bump the 'patch' number
+	bumpversion patch
+
+minor: ## Bump the 'minor' number
+	bumpversion minor
+
+major: ## Bump the 'major' number
+	bumpversion major
+
 publish: ## Register, build Source Distribution, and Upload to Repository
 	python setup.py register -r $(DEVPI_INDEX) sdist upload -r $(DEVPI_INDEX)
